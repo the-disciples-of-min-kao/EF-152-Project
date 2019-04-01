@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//This is the homepage
 class Home extends StatelessWidget {
   Home({Key key, this.title}) : super(key: key);
   final String title;
