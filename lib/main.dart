@@ -25,15 +25,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/*
-void main() {
-  runApp(MaterialApp(
-    title: 'EF 152 Rowing Simulation',
-    home: Home(),
-  ));
-}
-*/
-
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
   @override
@@ -114,12 +105,59 @@ class Usage extends StatefulWidget {
 class _UsageState extends State<Usage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Usage'),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('How To Use'),
       ),
+      body:
+      new Container(
+        child:
+        new Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new Container(
+                child:
+                new Text(
+                  "To use this app you must type in your team's 2000m time, each of their heights and weights and the teams average spm",
+                  style: new TextStyle(fontSize:12.0,
+                      color: const Color(0xFF000000),
+                      fontWeight: FontWeight.w200,
+                      fontFamily: "Roboto"),
+                ),
+
+                padding: const EdgeInsets.fromLTRB(11.0, 48.0, 60.0, 17.0),
+                alignment: Alignment.topCenter,
+                width: 47.0,
+                height: 555.0,
+              ),
+
+              new RaisedButton(key:null,
+                  color: const Color(0xFFe0e0e0),
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Main()));
+                  },
+                  child:
+                  new Text(
+                    "Continue",
+                    style: new TextStyle(fontSize:12.0,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w200,
+                        fontFamily: "Roboto"),
+                  )
+              )
+            ]
+
+        ),
+
+        padding: const EdgeInsets.all(0.0),
+        alignment: Alignment.center,
+      ),
+
     );
   }
+  void buttonPressed(){}
 }
 
 class Main extends StatefulWidget {
@@ -138,78 +176,3 @@ class _MainState extends State<Main> {
     );
   }
 }
-
-/*
-class MainPage extends State<Home> {
-  final formKey = GlobalKey<FormState>();
-  String _email, _password;
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Card(
-        child: Padding (
-          padding: EdgeInsets.all(8.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Email:'
-                  ),
-                  validator: (input) => !input.contains('@') ? 'Not a valid Email' : null,
-                  onSaved: (input) => _email = input,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Password:'
-                  ),
-                  validator: (input) => input.length < 8 ? 'Not a valid Email' : null,
-                  onSaved: (input) => _password = input,
-                  obscureText: true,
-                ),
-                Row (
-                  mainAxisAlignment: <Widget>[MainAxisAlignment.end,
-                  children: <W
-                    Padding (
-                      padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton (
-                        onPressed: _submit,
-                        child: Text('Sign in'),
-                      )
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-
-  void _submit() {
-    if(formKey.currentState.validate()){
-      formKey.currentState.save();
-      print(_email);
-      print(_password);
-    }
-  }
-}
-*/
