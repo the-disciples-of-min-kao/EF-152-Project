@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('App Name'),
+        title: new Text('Rowing Motivation App'),
       ),
       body:
       new Container(
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
               ),
 
               new Text(
-                "qWerty1",
+                "EF Rowing Simulation",
                 style: new TextStyle(fontSize:18.0,
                     color: const Color(0xFF000000),
                     fontWeight: FontWeight.w200,
@@ -76,11 +76,11 @@ class _HomeState extends State<Home> {
                 new RaisedButton(key:null,
                     color: const Color(0xFFe0e0e0),
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Main()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Usage()));
                     },
                     child:
                     new Text(
-                      "BUTTON 6",
+                      "Get Started",
                       style: new TextStyle(fontSize:12.0,
                           color: const Color(0xFF000000),
                           fontWeight: FontWeight.w200,
@@ -105,6 +105,22 @@ class _HomeState extends State<Home> {
   }
   void buttonPressed(){}
 }
+class Usage extends StatefulWidget {
+  Usage({Key key}) : super(key: key);
+  @override
+  _UsageState createState() => new _UsageState();
+}
+
+class _UsageState extends State<Usage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Usage'),
+      ),
+    );
+  }
+}
 
 class Main extends StatefulWidget {
   Main({Key key}) : super(key: key);
@@ -117,7 +133,7 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('testing'),
+        title: Text('Main'),
       ),
     );
   }
