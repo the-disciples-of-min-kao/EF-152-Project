@@ -1,8 +1,39 @@
+import 'dart:core';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+String input = '';
+List inputArray;
+const int meters = 2000;
+const int singleW = 14;
+const int doubleW = 27;
+const int fourW = 50;
+const int eightW = 96;
+const double fDW = 22.79;
+const double denAir = 1.225;
+const double CDragA = 1.8;
+const saMultiplier = .36;
+
+/* int numRowers;
+int spm;
+double timeMin;
+double totWeight;
+double avgH; */
+double velocity;
+double work;
+double wNoLoss;
+double weight;
+double fDragA;
+double force;
+double sA;
+double potPStroke;
+double vMax;
+double potTime;
+
+  class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -182,7 +213,7 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  @override
+    @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
@@ -199,7 +230,8 @@ class _MainState extends State<Main> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new Text(
-                  "Usage: number of rowers, 2000 meter race time, average strokes per minute, height of team member 1, weight of team number 1, height of team number 2, weight of team number 2, ...",
+                  "Usage: "
+                     + "number of rowers, 2000 meter race time in mins, average strokes per minute, total weight, average height",
                   style: new TextStyle(fontSize:20.0,
                       color: const Color(0xFF000000),
                       fontWeight: FontWeight.w200,
@@ -213,6 +245,11 @@ class _MainState extends State<Main> {
                         color: const Color(0xFFff0000),
                         fontWeight: FontWeight.w200,
                         fontFamily: "Roboto"),
+                    onChanged: (text) {
+                      input = text;
+                      inputArray = input.split(',');
+                      calculations(int.parse(inputArray[0]), double.parse(inputArray[1]), int.parse(inputArray[2]), double.parse(inputArray[3]), double.parse(inputArray[4]));
+                    },
                   ),
 
                   padding: const EdgeInsets.all(0.0),
@@ -249,6 +286,38 @@ class _MainState extends State<Main> {
     );
   }
   void buttonPressed(){}
+
+  void calculations(int rowers, double mins, int sPM, double totalWeight, double avgHeight) {
+    switch (rowers) {
+      case 1:
+        weight = totalWeight + singleW;
+        break;
+      case 2:
+        weight = totalWeight + doubleW;
+        break;
+      case 4:
+        weight = totalWeight + fourW;
+        break;
+      case 8:
+        weight = totalWeight + eightW;
+    }
+    double tSec = 60 * mins;
+    velocity = meters / tSec;
+
+    work = 1.0 / 2 * weight * pow(velocity, 2.0);
+    sA = sqrt(((totalWeight / rowers) * (avgHeight * 100)) / 3600);
+
+    fDragA=1/2*pow(velocity,2)*denAir*CDragA*sA;
+
+    force = fDW + fDragA;
+    wNoLoss = -(-work - force);
+
+    potPStroke = (wNoLoss / tSec) / (sPM * (tSec / 60));
+
+    vMax = sqrt((2 * wNoLoss) / totalWeight);
+
+    potTime = (meters / vMax)/60.0;
+  }
 }
 
 class Results extends StatefulWidget {
@@ -258,6 +327,9 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
+  //math function goes here
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -277,8 +349,8 @@ class _ResultsState extends State<Results> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   new Text(
-                    "qWerty1",
-                    style: new TextStyle(fontSize:12.0,
+                    "Work output: "+ work.toString()+ " Joules.\nWork no losses: " + wNoLoss.toString() + "Joules.\nPotential power/stroke: "+potPStroke.toString()+" Watts.\nMaximum potential velocity: "+ vMax.toString() + " m/s.\n" + "Minimum time for 2k: "+ (potTime).toString()+" minutes.\n",
+                    style: new TextStyle(fontSize:24.0,
                         color: const Color(0xFF000000),
                         fontWeight: FontWeight.w200,
                         fontFamily: "Roboto"),
