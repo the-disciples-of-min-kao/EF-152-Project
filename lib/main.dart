@@ -20,59 +20,111 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.deepOrange,
       ),
-      home: Home(title: 'Rowing Simulation Home Page'),
+      home: Home(),
     );
   }
 }
 
-//This is the homepage
-class Home extends StatelessWidget {
-  Home({Key key, this.title}) : super(key: key);
-  final String title;
+/*
+void main() {
+  runApp(MaterialApp(
+    title: 'EF 152 Rowing Simulation',
+    home: Home(),
+  ));
+}
+*/
 
+class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
+  @override
+  _HomeState createState() => new _HomeState();
+}
+
+//This is the homepage
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Center (
-      child: Container(
-        color: Colors.deepOrange,
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('App Name'),
+      ),
+      body:
+      new Container(
+        child:
+        new Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Image.asset(
+                'images/thumbnail.jpg',
+                fit:BoxFit.fill,
+                width: 300.0,
+                height: 300.0,
+              ),
+
+              new Text(
+                "qWerty1",
+                style: new TextStyle(fontSize:18.0,
+                    color: const Color(0xFF000000),
+                    fontWeight: FontWeight.w200,
+                    fontFamily: "Roboto"),
+              ),
+
+              new Container(
+                child:
+                new RaisedButton(key:null,
+                    color: const Color(0xFFe0e0e0),
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Main()));
+                    },
+                    child:
+                    new Text(
+                      "BUTTON 6",
+                      style: new TextStyle(fontSize:12.0,
+                          color: const Color(0xFF000000),
+                          fontWeight: FontWeight.w200,
+                          fontFamily: "Roboto"),
+                    )
+                ),
+
+                padding: const EdgeInsets.all(0.0),
+                alignment: Alignment.center,
+                width: 1.7976931348623157e+308,
+                height: 73.0,
+              )
+            ]
+
+        ),
+
+        padding: const EdgeInsets.all(0.0),
         alignment: Alignment.center,
-        foregroundDecoration: BoxDecoration (
-          image: DecorationImage(
-              image: ExactAssetImage('images/thumbnail.jpg'),
-          ),
-          border: Border.all (
-              color: Colors.deepOrange,
-              width: 8.0,
-          ),
-        ),
-        child: RaisedButton(
-            onPressed: null
-        ),
+      ),
+
+    );
+  }
+  void buttonPressed(){}
+}
+
+class Main extends StatefulWidget {
+  Main({Key key}) : super(key: key);
+  @override
+  _MainState createState() => new _MainState();
+}
+
+class _MainState extends State<Main> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('testing'),
       ),
     );
   }
 }
-/*
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}*/
 
 /*
-class _MainPageState extends StatelessWidget {
+class MainPage extends State<Home> {
   final formKey = GlobalKey<FormState>();
   String _email, _password;
 
@@ -112,7 +164,7 @@ class _MainPageState extends StatelessWidget {
                   obscureText: true,
                 ),
                 Row (
-                  mainAxisAlignment: Midget>[ainAxisAlignment.end,
+                  mainAxisAlignment: <Widget>[MainAxisAlignment.end,
                   children: <W
                     Padding (
                       padding: const EdgeInsets.all(8.0),
